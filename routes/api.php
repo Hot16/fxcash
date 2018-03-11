@@ -19,9 +19,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['prefix' => '/',
                 'namespace' => 'Api',
-
+                'as' => 'api.'
     ],
     function (){
-        Route::resource('/', 'ImagesController',
+        Route::resource('images', 'ImagesController',
             ['except' => ['create', 'show', 'edit', 'update']]);
     });

@@ -10,14 +10,16 @@
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    <title>Laravel</title>
+    <title>Загрузка и удаление изображений</title>
 
     <!-- Styles -->
 </head>
 <body>
+
 <div id="app">
     @yield('content')
 </div>
+
 <script src="{{ asset('js/app.js') }}"></script>
 
 </body>

@@ -19,8 +19,8 @@ import ImadesDestroy from './components/ImagesDestroy.vue';
 
 const routes = [
     {
-        path: '/',
-        components: {
+        path: '',
+        component: {
             ImadesIndex: ImagesIndex
         }
     },

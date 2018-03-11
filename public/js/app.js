@@ -1417,8 +1417,8 @@ window.Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
 
 
 var routes = [{
-    path: '/',
-    components: {
+    path: '',
+    component: {
         ImadesIndex: __WEBPACK_IMPORTED_MODULE_1__components_ImagesIndex_vue___default.a
     }
 }, { path: '/store', component: __WEBPACK_IMPORTED_MODULE_2__components_ImagesStore_vue___default.a, name: 'storeImages' }, { path: '/destroy', component: __WEBPACK_IMPORTED_MODULE_3__components_ImagesDestroy_vue___default.a, name: 'destroyImages' }];
