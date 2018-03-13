@@ -38,6 +38,7 @@ class ImagesController extends Controller
      */
     public function store(Request $request)
     {
+
         $request_all = $request->all();
         $rules = [
             'images.*' => 'required|file|mimes:jpg,png,jpeg'
@@ -51,7 +52,7 @@ class ImagesController extends Controller
         $files = $request->file('images');
         foreach ($files as $file) {
             $random_name = str_random(8);
-            $destinationPath = 'images';
+            $destinationPath = 'files';
             $extension = $file->getClientOriginalExtension();
             $filename = $random_name . '.' . $extension;
             $uploadSuccess = $file->move($destinationPath, $filename);

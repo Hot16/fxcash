@@ -17,11 +17,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['prefix' => '/',
+Route::group(['prefix' => '/img',
                 'namespace' => 'Api',
                 'as' => 'api.'
     ],
     function (){
-        Route::resource('images', 'ImagesController',
+        Route::resource('/', 'ImagesController',
             ['except' => ['create', 'show', 'edit', 'update']]);
     });

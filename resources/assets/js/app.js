@@ -14,21 +14,22 @@ window.Vue.use(VueRouter);
 
 import ImagesIndex from './components/ImagesIndex.vue';
 import ImagesStore from './components/ImagesStore.vue';
-import ImadesDestroy from './components/ImagesDestroy.vue';
+import ImagesDestroy from './components/ImagesDestroy.vue';
 
 
 const routes = [
     {
-        path: '',
-        component: {
-            ImadesIndex: ImagesIndex
+        path: '/',
+        components: {
+            ImagesIndex: ImagesIndex
         }
     },
-    {path: '/store', component: ImagesStore, name: 'storeImages'},
-    {path: '/destroy', component: ImadesDestroy, name: 'destroyImages'},
+    {path: '/images/store', component: ImagesStore, name: 'ImagesStore'},
+    {path: '/images/destroy', component: ImagesDestroy, name: 'ImagesDestroy'},
 ]
 
-const router = new VueRouter({ routes });
+const router = new VueRouter({
+    routes });
 
 const app = new Vue({
     router

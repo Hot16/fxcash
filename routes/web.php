@@ -12,5 +12,9 @@
 */
 
 Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('images', function () {
     return view('index');
 });
