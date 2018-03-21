@@ -13,9 +13,6 @@ import VueRouter from 'vue-router';
 window.Vue.use(VueRouter);
 
 import ImagesIndex from './components/ImagesIndex.vue';
-import ImagesStore from './components/ImagesStore.vue';
-import ImagesDestroy from './components/ImagesDestroy.vue';
-
 
 const routes = [
     {
@@ -24,8 +21,6 @@ const routes = [
             ImagesIndex: ImagesIndex
         }
     },
-    {path: '/images/store', component: ImagesStore, name: 'ImagesStore'},
-    {path: '/images/destroy', component: ImagesDestroy, name: 'ImagesDestroy'},
 ]
 
 const router = new VueRouter({

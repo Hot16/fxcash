@@ -24,4 +24,5 @@ Route::group(['prefix' => '/img',
     function (){
         Route::resource('/', 'ImagesController',
             ['except' => ['create', 'show', 'edit', 'update']]);
+        Route::get('clear', 'ImagesController@clear');
     });

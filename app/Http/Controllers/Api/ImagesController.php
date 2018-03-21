@@ -17,7 +17,8 @@ class ImagesController extends Controller
      */
     public function index()
     {
-        return Image::all();
+        $images = Image::all();
+        return $images;
     }
 
     /**
@@ -41,15 +42,16 @@ class ImagesController extends Controller
 
         $request_all = $request->all();
         $rules = [
-            'images.*' => 'required|file|mimes:jpg,png,jpeg'
+            'newimages.*' => 'required|file|mimes:jpg,png,jpeg'
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
-            $messages = $validator->messages();
-            return $messages;
+            $errors = $validator->errors();
+            $errors_arr = ['error' => $errors->first()];
+            return $errors_arr;
         }
 
-        $files = $request->file('images');
+        $files = $request->file('newimages');
         foreach ($files as $file) {
             $random_name = str_random(8);
             $destinationPath = 'files';
@@ -105,6 +107,14 @@ class ImagesController extends Controller
      */
     public function destroy()
     {
+        //
+    }
+
+    public function clear()
+    {
+
         DB::table('images')->truncate();
+
+        return Image::all();
     }
 }

@@ -1,37 +1,114 @@
 <template>
     <div>
-        <div>
-            <router-link :to="{name:'ImagesStore'}" class="btn btn-success">Загрузить изображения</router-link>
-            <router-link :to="{name:'ImagesDestroy'}" class="btn btn-danger">Очистить хранилище</router-link>
+        <div class="panel panel-default">
+            <div class="panel-heading">Загрузить изображения</div>
+            <div class="panel-body">
+                <form>
+                    <div class="row">
+                        <div class="col-xs-12 form-group">
+                            <label class="control-label">Выберете файлы</label>
+                            <input type="file" @change="uploadFiles" class="form-control" multiple>
+                        </div>
+                    </div>
+
+                    <div class="row" v-if="error.length>0">
+                        <div class="col-xs-12 form-group">
+                            <strong>{{error}}</strong>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12 form-group">
+                            <button class="btn btn-success" @click="upload">Загрузить</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="panel panel-default" v-if="images.length>0">
+
+        <div class="panel panel-default">
+             <button @click="clearStorage" class="btn btn-danger" :disabled="images.length<1">Очистить хранилище</button>
+        </div>
+
+        <div class="panel panel-default">
             <div class="panel-heading">
                 Загруженные изображения
             </div>
-            <div class="panel-body">
+            <div class="panel-body" v-if="images.length>0">
                 <div v-for="image, index in images">
-                    <img :src="images/image.name" />
+                    <img :src="'/files/'+image.name" />
                 </div>
+            </div>
+            <div class="panel-body" v-else>
+                Нет загруженных изображений
             </div>
 
         </div>
-        <div class="" v-else>
-            Нет загруженных изображений
-        </div>
+
     </div>
 </template>
 
 <script>
     export default {
-        data: function () {
+        data() {
             return {
-                images: []
+                images: [],
+                newImages: new FormData(),
+                error: ''
             }
         },
         mounted() {
-            console.log('Index mounted');
             var app = this;
-            axios.get('');
+            axios.get('/api/img')
+                .then(function (resp) {
+                    app.images = resp.data;
+                })
+                .catch(function (resp) {
+                    console.log(resp);
+
+                });
+        },
+        methods:{
+            clearStorage(){
+                var app = this;
+                axios.get('/api/img/clear')
+                    .then(function (resp) {
+                        console.log(resp);
+                        app.images = resp.data;
+                    })
+                    .catch(function (resp) {
+                        console.log(resp);
+                    });
+            },
+
+            uploadFiles(e){
+                e.preventDefault();
+                var files = e.target.files || e.dataTransfer.files;
+                var app = this;
+                console.log('files', files);
+                for (var i = files.length - 1; i >= 0; i--) {
+                    app.newImages.append('newimages[]', files[i]);
+                }
+
+
+            },
+            upload(){
+                console.log('post', this.newImages);
+                var app = this;
+                axios.post('/api/img', this.newImages)
+                    .then(function (resp) {
+
+                        if (resp.data.error){
+                            app.error = resp.data.error;
+                        } else {
+                            app.images = resp.data;
+                        }
+                    })
+                    .catch(function (resp) {
+                        console.log('error', resp);
+                        alert('Не срослось');
+                    })
+            }
         }
     }
 </script>
